@@ -1,0 +1,29 @@
+{
+  "name": "spring-hotel",
+  "dependencies": {
+    "jquery": "3.1.0",
+    "angular": "1.4.1",
+    "angular-animate": "1.4.1",
+    "angularjs-toaster": "0.4.15",
+    "angularjs-scroll-glue": "0.0.1",
+    "sockjs": "~0.3.4",
+    "stomp": "stomp-websocket#~2.3.4",
+    "flat-ui": "2.2.2",
+    "bootstrap": "^3.3.7",
+    "angular-bootstrap": "~0.11.2"
+  },
+  "authors": [
+    "katarzyna retowska"
+  ],
+  "description": "ksr project",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
+
