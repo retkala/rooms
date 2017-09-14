@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html lang="pl" ng-app="roomShares">
 <head>
-    <title>Hello WebSocket</title>
+    <title>Wynajem pokoi</title>
     <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="lib/flat-ui/dist/css/flat-ui.css" rel="stylesheet">
     <script src="lib/jquery/dist/jquery.js"></script>
@@ -10,54 +10,101 @@
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angularjs-toaster/toaster.js"></script>
     <script src="lib/angular-animate/angular-animate.js"></script>
-    <script src="js/app.js"></script>
+
+    <script src="lib/momentjs/moment.js"></script>
+    <script src="lib/angular-moment-picker/dist/angular-moment-picker.js"></script>
+    <link href="lib/angular-moment-picker/dist/angular-moment-picker.css" rel="stylesheet">
+
+    <script src="js/myApp.js"></script>
+    <script src="js/controller.js"></script>
+
 </head>
 <body>
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
     enabled. Please enable
     Javascript and reload this page!</h2></noscript>
-<div id="main-content" class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="connect">WebSocket connection:</label>
-                    <button id="connect" class="btn btn-default" type="submit">Connect</button>
-                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
-                    </button>
+<div id="main-content" class="container" ng-controller="RoomController">
 
-                </div>
-            </form>
-            <form>
-                <button id="roomshares" class="btn btn-default" ng-click="getRoomShares()">Get Room's Shares</button>
-            </form>
-        </div>
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="name">What is your name?</label>
-                    <input type="text" id="name" class="form-control" placeholder="Your name here...">
-                    <input type="text" id="number" class="form-control" placeholder="Reservation number here">
-                </div>
-                <button id="send" class="btn btn-default" type="submit">SendToApp</button>
-                <button id="sendMessage" class="btn btn-default" type="submit">SendToQueue</button>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <table id="conversation" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Greetings</th>
-                </tr>
-                </thead>
-                <tbody id="greetings">
-                </tbody>
-            </table>
-        </div>
-    </div>
-    </form>
+    <toaster-container></toaster-container>
+
+    <h2>Pokoje</h2>
+    <button class="btn btn-default" ng-click="getRoomShares()">Get Room's Shares</button>
+    <h4>Dostepne pokoje [{{allRoomShares.length}}]</h4>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="room in allRoomShares">
+            <td>{{room.id}}</td>
+            <td>{{room.startDate}}</td>
+            <td>{{room.endDate}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-default" ng-click="getUserRooms()"> Pokoje</button>
+    <h4>Pokoje uzytkownika: {{username}} [{{rooms.length}}]</h4>
+    <!--<div class="input-group"
+         moment-picker="ctrl.myInput"
+         format="YYYY-MM-DD">
+                    <span class="input-group-addon">
+                        <i class="octicon octicon-calendar"></i>
+                    </span>
+        <input class="form-control" id="shareStartDate"
+               placeholder="Start date"
+               ng-model="ctrl.startDate"
+               ng-model-options="{ updateOn: 'blur' }">
+        <input class="form-control"
+               placeholder="End date" id="shareEndDate"
+               ng-model="ctrl.myInput"
+               ng-model-options="{ updateOn: 'blur' }">
+    </div>-->
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>City</th>
+            <th>Wlasciciel</th>
+            <th>Podziel sie</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="room in rooms">
+            <td>{{room.id}}</td>
+            <td>{{room.city}}</td>
+            <td>{{room.owner}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="shareRoom(room)">Share room</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Pokoje ktorymi chcial sie podzielic uzytkownik</h4>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>City</th>
+            <th>Wlasciciel</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="room in sharedRooms">
+            <td>{{room.id}}</td>
+            <td>{{room.city}}</td>
+            <td>{{room.owner}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
 </div>
 </body>
 </html>

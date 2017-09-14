@@ -18,12 +18,13 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
                 .setSystemLogin("admin")
                 .setSystemPasscode("admin");
         config.setApplicationDestinationPrefixes("/app");
-        config.setUserDestinationPrefix("/user");
+        //config.setUserDestinationPrefix("/user");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/gs-guide-websocket").withSockJS();
+        registry.addEndpoint("/gs-guide-websocket");
     }
 
 }
